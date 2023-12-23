@@ -1,0 +1,61 @@
+service: tm-backend
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: ap-south-1
+  stage: ${opt:stage, 'dev'}
+  environment:
+    STAGE: ${self:provider.stage}
+    REGION: ${self:provider.region}
+  iam:
+    role:
+      name: ${self:service}-${self:provider.stage}-lambdaRole
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:PutItem
+            - dynamodb:GetItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+            - dynamodb:Query
+          Resource: "*"
+
+functions:
+  taskManager:
+    handler: src/taskHandler.handler
+    timeout: 30
+    environment:
+      DYNAMODB_TABLE_NAME: ${self:provider.stage}-taskManager
+    events:
+      - http:
+          path: create/task
+          method: post
+          cors: true
+          authorizer: aws_iam
+      - http:
+          path: task/{taskId+}
+          method: put
+          cors: true
+          authorizer: aws_iam
+      - http:
+          path: task/{taskId+}
+          method: get
+          cors: true
+          authorizer: aws_iam
+      - http:
+          path: task/{taskId+}
+          method: delete
+          cors: true
+          authorizer: aws_iam
+      - http:
+          path: getall/task
+          method: get
+          cors: true
+          authorizer: aws_iam
+      - http:
+          path: getbystatus/task
+          method: post
+          cors: true
+          authorizer: aws_iam
