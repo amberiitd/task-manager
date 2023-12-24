@@ -1,93 +1,91 @@
-# task-manager
+# Task Manager App
+
+Welcome to the Task Manager App, your go-to solution for efficient task management and organization. This application is designed to streamline the process of creating, updating, and deleting tasks, providing users with a powerful tool to stay organized and on top of their responsibilities.
+
+## Git Repo: 
+- https://gitlab.com/amberiitd/task-manager.git
+
+## Video Demo: 
 
 
+## Live Demo
+- Go to http://www.my-task-manager.com.s3-website.ap-south-1.amazonaws.com 
+- Please user following credentials to sign-in as an existing user:
 
-## Getting started
+  username: `admin`
+  password: `welcome123`
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+- You can sign-up as well, before logging in.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
 
-## Add your files
+## Features
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+- User Authentication: Secure your tasks with user authentication to ensure that your data is private and accessible only to authorized users.
 
-```
-cd existing_repo
-git remote add origin https://gitlab.com/amberiitd/task-manager.git
-git branch -M main
-git push -uf origin main
-```
+- Task Creation: Easily create tasks, specifying details such as task name, description, and status.
 
-## Integrate with your tools
+- Task Update: Keep your tasks up to date by modifying their details, including status changes to reflect progress.
 
-- [ ] [Set up project integrations](https://gitlab.com/amberiitd/task-manager/-/settings/integrations)
+- Task Deletion: Remove completed or unnecessary tasks to maintain a clean and clutter-free task list.
 
-## Collaborate with your team
+- Status Filtering: View tasks based on their status, allowing you to focus on pending, in-progress, or completed tasks as needed.
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+## How to Get Started
+- User Registration: Begin by registering as a user to access the full functionality of the Task Manager App.
 
-## Test and Deploy
+- Task Creation: After registration, start creating tasks by providing essential details. Feel free to include additional information to make your tasks more descriptive.
 
-Use the built-in continuous integration in GitLab.
+- Task Updates: As tasks evolve, update their status and details to keep your task list accurate and reflective of your progress.
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+- Task Deletion: Remove tasks that are no longer relevant or have been successfully completed to maintain an organized task list.
 
-***
+## Security
+We prioritize the security of your data. User authentication ensures that only authorized individuals have access to task management features, providing a safe and reliable environment for your personal and professional task management needs.
 
-# Editing this README
+## Technologies used:
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+- Amazon Web Services (AWS)
 
-## Suggestions for a good README
+  1. Cognito Pool: To manage user base, assign user role.
+  2. Cognito Identity Provider: To issue IAM credential to access the service.
+  3. DynamoDB: As database
+  4. AWS Lambda: to auto confirm cognito user and host api on a serverless framework which is cost effective.
+  5. API Gateway: To expose the endpoint for the apis, also used as an authentication layer and integrated with AWS lambda.
+  6. Cloudwatch Logs: For logging and monitoring 
+  7. S3: For static website hosting.
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+- Mocha, Chai & Sinon: For unit testing.
+- ReactJs: For frontend design.
 
-## Name
-Choose a self-explaining name for your project.
+## Components
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+1. `base-infra`: This includes deployment of basic infrastructure, ex: database (DynamoDB) and AWS Cognito Pool and Identity Provider for authentication and authorization and user management.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+3. `backend`: This is a `npm` project as well as `serverless` project. `serverless.yml` includes configuration for deployment of lamda serverless apis.
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+4. `frontend`: A sample UI project which demonstrates the api in use.
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+## Deployment
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+To deploy the Task Manager project on AWS, follow the steps below:
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+## Prerequisites
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+Before you begin, make sure you have the following prerequisites in place:
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+1. An AWS account with the necessary permissions to create and manage ECS resources.
+2. AWS and Serverless CLI installed and configured with the appropriate IAM credentials.
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+## AWS Deployment
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+1. Clone the git repository
+2. Run `npm install` under all the `npm` sub folders
+3. run the bash file `deploy-infra.sh`
+4. Build the front end react project and deploy it. use the API gateway Resource endpoint to configure it to the frontend.
+5. make sure all the AWS resources are deployed properly
 
-## License
-For open source projects, say how it is licensed.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+## NOTE
+
+- Get the API gateway base url from the AWS console or through aws cli. You can use it to invoke the server with appropriate aws IAM credentials. Also you can configure this url in the frontend project.
