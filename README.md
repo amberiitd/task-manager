@@ -4,6 +4,7 @@ Welcome to the Task Manager App, your go-to solution for efficient task manageme
 
 ## Git Repo: 
 - https://gitlab.com/amberiitd/task-manager.git
+- https://github.com/amberiitd/task-manager
 
 ## Video Demo: 
 - https://vimeo.com/897523795?share=copy
