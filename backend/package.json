@@ -3,12 +3,15 @@
 	"version": "1.0.0",
 	"description": "A demo app to manage user tasks.",
 	"scripts": {
-		"deploy-infra": "sls deploy --aws-profile personal"
+		"deploy-infra": "sls deploy --aws-profile personal",
+    "test": "NODE_ENV=test mocha test/*.test.js"
 	},
 	"author": "amberiitd",
 	"license": "ISC",
-	"dependencies": {},
 	"devDependencies": {
-		"aws-sdk": "^2.1227.0"
+		"aws-sdk": "^2.1227.0",
+		"chai": "^4.3.10",
+		"mocha": "^10.2.0",
+		"sinon": "^17.0.1"
 	}
 }

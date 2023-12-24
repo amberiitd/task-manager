@@ -35,7 +35,7 @@ const AddNewTask = () => {
 	});
 
 	return (
-		<Accordion onChange={(e, expanded) => setOpen(expanded)}>
+		<Accordion onChange={(e, expanded) => setOpen(expanded)} sx={{backgroundColor: "inherit"}}>
 			<AccordionSummary style={{ display: "flex", alignItems: "center" }}>
 				{!open ? <AddIcon style={{ marginRight: 5 }} /> : <CloseIcon style={{ marginRight: 5 }} />}
 				<Typography variant="h5" fontWeight={600}>Add New Task</Typography>

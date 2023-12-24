@@ -1,6 +1,5 @@
-const AWS = require("aws-sdk");
+const { DB } = require("../configs/dbConfig");
 
-const DB = new AWS.DynamoDB.DocumentClient();
 const TABLE = process.env.DYNAMODB_TABLE_NAME;
 
 const createItem = async (pk, sk, data, table = TABLE) => {

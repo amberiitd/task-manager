@@ -1,4 +1,4 @@
-import { FC, createContext, useContext, useEffect, useState } from "react";
+import { FC, createContext, useContext, useEffect, useMemo, useState } from "react";
 import { Amplify, Auth } from "aws-amplify";
 import { useLocation, useNavigate } from "react-router-dom";
 import AppNavBar from "../components/AppNavBar";
@@ -6,6 +6,8 @@ import { noop } from "lodash";
 import { parseJwt } from "../util/jwt";
 import { AppContext } from "./app";
 import { toast } from "react-toastify";
+import { useTheme } from "@emotion/react";
+import { tokens } from "./theme";
 
 Amplify.configure({
 	Auth: {
@@ -48,7 +50,9 @@ export const AuthContext = createContext({
 });
 
 const AuthContextProvider = ({ children }) => {
-  const { bigScreen, refreshTasks } = useContext(AppContext);
+  const theme = useTheme();
+	const colors = useMemo(() => tokens(theme.palette.mode), [theme]);
+	const { bigScreen, refreshTasks } = useContext(AppContext);
 	const [auth, setAuth] = useState({
 		status: "loading",
 		user: undefined,
@@ -69,8 +73,8 @@ const AuthContextProvider = ({ children }) => {
 					name: user.attributes?.name,
 				},
 			});
-      refreshTasks();
-      toast.success("User logged in")
+			refreshTasks();
+			toast.success("User logged in");
 		} catch (error) {
 			console.error(error);
 			throw error;
@@ -85,7 +89,7 @@ const AuthContextProvider = ({ children }) => {
 		})
 			.then(() => {
 				navigate("/login");
-        toast.success("User signed up")
+				toast.success("User signed up");
 			})
 			.catch((error) => {
 				console.error(error);
@@ -97,11 +101,10 @@ const AuthContextProvider = ({ children }) => {
 			console.log("userlogged out");
 			setAuth({ status: "unauthenticated", user: undefined });
 		});
-    refreshTasks();
+		refreshTasks();
 	};
 
 	useEffect(() => {
-    
 		if (auth.status === "loading") {
 			Auth.currentAuthenticatedUser()
 				.then((data) => {
@@ -114,7 +117,7 @@ const AuthContextProvider = ({ children }) => {
 							name: data.attributes?.name,
 						},
 					});
-          refreshTasks();
+					refreshTasks();
 				})
 				.catch((error) => {
 					console.log(error);
@@ -122,7 +125,7 @@ const AuthContextProvider = ({ children }) => {
 						status: "unauthenticated",
 						user: undefined,
 					});
-          refreshTasks();
+					refreshTasks();
 					navigate("/login");
 				});
 		}
@@ -130,7 +133,16 @@ const AuthContextProvider = ({ children }) => {
 	return (
 		<AuthContext.Provider value={{ auth, login, signup, logout }}>
 			<AppNavBar profile={!["/login", "/signup"].includes(location.pathname)} />
-			<main style={{ padding: bigScreen ? "0 200px 0 200px": "0 20px 0 20px" }}>{children}</main>
+			<main
+				style={{
+					display: "flex",
+					justifyContent: "center",
+					height: "calc(100vh - 70px)",
+					background: `linear-gradient(${colors.bg[100]}, ${colors.primary[100]})`,
+				}}
+			>
+				{children}
+			</main>
 		</AuthContext.Provider>
 	);
 };

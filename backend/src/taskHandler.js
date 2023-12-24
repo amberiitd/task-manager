@@ -4,7 +4,7 @@ const { pathHandler } = require("./util/pathHandler");
 const functionMap = {
 	"/create/task": {
 		POST: {
-			requiredParams: ["uid", "title"],
+			requiredParams: ["uid", "title", "status"],
 			callback: createTask,
 		},
 	},

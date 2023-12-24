@@ -21,6 +21,7 @@ import { useTheme } from "@emotion/react";
 import TextCopy from "./TextCopy";
 import { tokens } from "../contexts/theme";
 import { AuthContext } from "../contexts/auth";
+import { startCase, toUpper } from "lodash";
 
 // ** Styled Components
 const BadgeContentSpan = styled("span")(({ theme }) => ({
@@ -76,7 +77,7 @@ const UserDropdown = (props) => {
 				}}
 			>
 				<Avatar
-					alt={"Profile"}
+					alt={ startCase(auth.user?.username || "Profile")}
 					onClick={handleDropdownOpen}
 					sx={{
 						width: 35,
@@ -97,7 +98,7 @@ const UserDropdown = (props) => {
 				<Box sx={{ pt: 2, pb: 3, px: 2 }}>
 					<Box sx={{ display: "flex", alignItems: "center" }}>
 						<Avatar
-							alt={"Profile"}
+							alt={ startCase(auth.user?.username || "Profile")}
 							onClick={handleDropdownOpen}
 							sx={{
 								width: 35,

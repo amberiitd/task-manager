@@ -41,7 +41,7 @@ const HomePage = () => {
 	const formValues = watch();
 
 	return (
-		<Box marginTop={5}>
+		<Box marginTop={5} width={500} maxWidth={"90%"}>
       <AddNewTask />
       <TaskFilter />
       <TaskList />

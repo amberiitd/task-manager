@@ -6,7 +6,7 @@ export const tokens = (mode) => ({
 	...(mode === "dark"
 		? {
 				bg: {
-					[100]: "#28282B",
+					[100]: '#28282B',
 				},
 				primary: {
 					100: "#080808",

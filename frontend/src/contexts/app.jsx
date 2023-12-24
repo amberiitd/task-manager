@@ -5,7 +5,7 @@ import { filter } from "lodash";
 
 export const AppContext = createContext({});
 const AppContextProvider = ({ children }) => {
-	const [bigScreen, setBigScreen] = useState(window.matchMedia("(min-width: 768px)").matches);
+	const [bigScreen, setBigScreen] = useState(window.matchMedia("(min-width: 900px)").matches);
 	const [taskList, dispatchTaskAction] = useReducer(function (taskList, action) {
 		switch (action.type) {
 			case "setList":
@@ -26,7 +26,7 @@ const AppContextProvider = ({ children }) => {
 				.then((data) => {
 					dispatchTaskAction({
 						type: "setList",
-						data: data.sort((t1, t2) => (t1.updatedAt || 0) - (t2.updatedAt || 0)),
+						data: data.sort((t1, t2) => (t1.createdAt || 0) - (t2.createdAt || 0)),
 					});
 				})
 				.catch((error) => {

@@ -19,14 +19,18 @@ import {
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import { useContext, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import { AppContext } from "../contexts/app";
 import { toast } from "react-toastify";
 import { deleteTask, updateTask } from "../service/api";
 import moment from "moment";
 import ConfirmDelete from "./ConfirmDelete";
+import { useTheme } from "@emotion/react";
+import { tokens } from "../contexts/theme";
 // borderBottom={1} borderTop={1} borderColor={"whitesmoke"}
 const TaskItem = ({ taskId, title, description, status, createdAt, updatedAt }) => {
+  const theme = useTheme();
+	const colors = useMemo(() => tokens(theme.palette.mode), [theme]);
 	const { bigScreen, refreshTasks } = useContext(AppContext);
 	const [open, setOpen] = useState(false);
 	const [deleteModal, setDeleteModal] = useState(false);
@@ -43,7 +47,7 @@ const TaskItem = ({ taskId, title, description, status, createdAt, updatedAt }) 
 	};
 
 	return (
-		<Box width={"100%"} sx={{ backgroundColor: open ? "azure" : "unset" }}>
+		<Box width={"100%"} sx={{ backgroundColor: open ? colors.bg[100] : "unset" }}>
 			<Box display={"flex"} sx={{ padding: 1, paddingLeft: "16px" }}>
 				{bigScreen && (
 					<IconButton
@@ -66,6 +70,7 @@ const TaskItem = ({ taskId, title, description, status, createdAt, updatedAt }) 
 								borderRadius: 20,
 								padding: "5px 0px 5px 10px",
 								backgroundColor: "inherit",
+                color: colors.primary[900]
 							}}
 							onChange={onUpdate}
 							value={status}
@@ -87,6 +92,7 @@ const TaskItem = ({ taskId, title, description, status, createdAt, updatedAt }) 
 			</Box>
 			<Collapse in={open} timeout="auto" unmountOnExit>
 				<div style={{ padding: 20 }}>
+          <Typography fontWeight={600}>Description:</Typography>
 					<Box sx={{ padding: 1 }}>{description}</Box>
 					{!bigScreen && (
 						<Box display={"flex"} flexWrap={"wrap"} padding={"20px 0 20px 0"}>
@@ -114,11 +120,11 @@ const TaskItem = ({ taskId, title, description, status, createdAt, updatedAt }) 
 					<Grid container columnSpacing={4}>
 						<Grid item>
 							<span style={{ fontWeight: 600 }}>Created At:</span>{" "}
-							{createdAt ? moment.unix(createdAt).format("DD MMM YYYY HH:mm A") : "-"}
+							{createdAt ? moment.unix(createdAt).format("DD MMM YYYY, hh:mm A") : "-"}
 						</Grid>
 						<Grid item>
 							<span style={{ fontWeight: 600 }}>Updated At:</span>{" "}
-							{createdAt ? moment.unix(updatedAt).format("DD MMM YYYY HH:mm:SS") : "-"}
+							{createdAt ? moment.unix(updatedAt).format("DD MMM YYYY, hh:mm A") : "-"}
 						</Grid>
 					</Grid>
 				</div>

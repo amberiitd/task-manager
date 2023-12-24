@@ -2,6 +2,9 @@ const { createItem, getAllItems, deleteItem, getTaskByStatus, updateItem } = req
 const { makeid } = require("../util/util");
 
 async function createTask(body) {
+  if (!["pending", "in-progress", "completed"].includes(body.status)){
+    throw Error("Invalid payload: status")
+  }
 	const taskId = makeid(8);
 	await createItem(`uid:${body.uid}`, `task:${taskId}`, {
 		itemType: "task",
