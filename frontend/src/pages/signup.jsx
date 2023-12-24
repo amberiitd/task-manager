@@ -39,7 +39,7 @@ const SignupPage = () => {
 					rules={{
 						required: true,
 						validate: (value) => {
-							return /^\w{3,}$/.test(value);
+							return /^\w{3,}\s?\w*$/.test(value);
 						},
 					}}
 					render={({ field }) => (
